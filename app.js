@@ -10,53 +10,157 @@ document.addEventListener("DOMContentLoaded", () => {
     const chatForm = document.getElementById("chat-form");
     const userInput = document.getElementById("user-input");
 
-    // --- POPULATE TABLE DATA ---
-    const tableData = [
-        { plant: '2014', plantName: 'QUAKER DC LOCKBOURNE OH', material: '10034895248939888', name: 'Gatorade Thirst Quencher Powder Fruit Punch 2.5 gal', batch: '071124GP', stcLoc: '00' },
-        { plant: '2014', plantName: 'QUAKER DC LOCKBOURNE OH', material: '10052000', name: 'Gatorade Thirst Quencher Powder Lemon-lime 2.5 gal', batch: '061024GP', stcLoc: '00' },
-        { plant: '2033', plantName: 'QUAKER RP ECOMM GRAND PRAIRIE', material: '10052000', name: 'Gatorade Thirst Quencher Powder Lemon-lime 2.5 gal', batch: '061324GP', stcLoc: '00' },
-        { plant: '2071', plantName: 'QUAKER DC LAKELAND FL', material: '10052000', name: 'Gatorade Thirst Quencher Powder Lemon-lime 2.5 gal', batch: '061024GP', stcLoc: '00' }
+    // --- POPULATE ACCORDION DATA ---
+    const accordionData = [
+        { origin: '3389', originName: 'BEVERAGE INDIANAPOLIS SVC CTR', dest: '8263', destName: '2206 (PCNA DC JOLIET ECOMM SVC IL)', metrics: '14 Items, 5,847 CS, 39 PAL, 42,230 LBS, 2.64 Trucks', transp: '$1,962', mitigated: '$70,664', expanded: true },
+        { origin: '1062', originName: 'GATORADE CP MSI GRAND PRAIRIE', dest: '8263', destName: '2206 (PCNA DC JOLIET ECOMM SVC IL)', metrics: '1 Item, 263,840 CS, 2932 PAL, 1,878,541 LBS, 117.41 Trucks', transp: '$205,674', mitigated: '$47,491', expanded: false },
+        { origin: '3936', originName: 'QUAKER DC SAN BERN CA SRV CTR', dest: '8225', destName: '3264 (GATORADE DC TRACY CA)', metrics: '9 Items, 873 CS, 10 PAL, 8,937 LBS, 0.56 Trucks', transp: '$1,204', mitigated: '$13,919', expanded: false },
+        { origin: '3216', originName: 'QTG-ATLANTA CAMPUS', dest: '8263', destName: '2206 (PCNA DC JOLIET ECOMM SVC IL)', metrics: '5 Items, 524 CS, 8 PAL, 8,019 LBS, 0.50 Trucks', transp: '$1,111', mitigated: '$12,239', expanded: false },
+        { origin: '2033', originName: 'QUAKER RP ECOMM GRAND PRAIRIE', dest: '8263', destName: '2206 (PCNA DC JOLIET ECOMM SVC IL)', metrics: '6 Items, 20,940 CS, 235 PAL, 149,093 LBS, 9.32 Trucks', transp: '$6,730', mitigated: '$3,706', expanded: false },
+        { origin: '2204', originName: 'QUAKER DC BLUE SPRINGS MO', dest: '8263', destName: '2206 (PCNA DC JOLIET ECOMM SVC IL)', metrics: '1 Item, 42 CS, 1 PAL, 1,907 LBS, 0.12 Trucks', transp: '$1,118', mitigated: '$2,472', expanded: false },
+        { origin: '3971', originName: 'QUAKER DC TOLLESON AZ', dest: '8225', destName: '3264 (GATORADE DC TRACY CA)', metrics: '1 Item, 224 CS, 1 PAL, 1,167 LBS, 0.07 Trucks', transp: '$1,260', mitigated: '$2,085', expanded: false },
+        { origin: '3227', originName: 'QUAKER DC CEDAR RAPIDS IA', dest: '8263', destName: '2206 (PCNA DC JOLIET ECOMM SVC IL)', metrics: '1 Item, 39 CS, 1 PAL, 278 LBS, 0.02 Trucks', transp: '$584', mitigated: '$536', expanded: false }
     ];
 
-    function renderTable() {
-        tableBody.innerHTML = '';
-        tableData.forEach((row, index) => {
-            const tr = document.createElement('tr');
-            tr.className = 'hover:bg-neutral-100 transition-colors border-b border-neutral-200 last:border-b-0 text-sm leading-6';
-            
-            const actionSelect = index === 0 
-                ? `<select class="border border-neutral-300 rounded-base px-2 py-1 text-neutral-700 bg-white w-full text-[13px] font-sans focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-100 shadow-sm appearance-none" style="background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23475569%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 6px center; background-size: 14px;"><option>Unassigned</option><option>Text Value</option></select>`
-                : `<select class="border border-neutral-300 rounded-base px-2 py-1 text-neutral-700 bg-white w-full text-[13px] font-sans focus:outline-none focus:border-primary-500 shadow-sm appearance-none"><option>Unassigned</option></select>`;
+    const innerTableData = [
+        { plant: '8225<br><span class="text-neutral-500">3264</span>', plantName: 'Tracy', material: '000000000300055075<br><span class="text-neutral-500">010052000054993000</span>', name: 'WH GAT GTRLT GLFRZ PET 20OZ 1PK 12CS', batch: '111425FS', loc: '3088', mfg: '11/18/20...', action: 'No Action', sub: 'Low/No De...', extend: '' },
+        { plant: '8295<br><span class="text-neutral-500">4024</span>', plantName: 'US-DC-DALLAS-TX-QSDI', material: '000000000300054642<br><span class="text-neutral-500">010052000102458000</span>', name: 'WH GAT CHR PET 20OZ 8P3C', batch: '111525DL', loc: '3000', mfg: '11/15/20...', action: 'Unassigned', sub: '', extend: '' },
+        { plant: '8170<br><span class="text-neutral-500">4040</span>', plantName: 'US-DC-LAKELAND-FL-QSDI-SVC', material: '000000000300052726<br><span class="text-neutral-500">010052000204084004</span>', name: 'WH GA LIQ 20OZ 6/4PK FP COC', batch: '53368B66XX', loc: '3000', mfg: '12/02/20...', action: 'Unassigned', sub: '', extend: '' },
+        { plant: '8B66', plantName: 'BROOKSHIRE PGT', material: '000000000300038329', name: 'WH GAT GTRLT GLFRZ PET 20OZ 1PK 12CS', batch: '111425FS', loc: '3088', mfg: '11/18/20...', action: 'Unassigned', sub: '', extend: '' },
+        { plant: '8B66', plantName: 'BROOKSHIRE PGT', material: '000000000300055075<br><span class="text-neutral-500">010052000054993000</span>', name: 'WH GAT GTRLT GLFRZ PET 20OZ 1PK 12CS', batch: '111425FS', loc: '3088', mfg: '11/18/20...', action: 'STO (826...', sub: '--', extend: '45 Da...' },
+        { plant: '8263<br><span class="text-neutral-500">2206</span>', plantName: 'PCNA DC JOLIET ECOMM SVC IL', material: '000000000300055483<br><span class="text-neutral-500">010052000043270000</span>', name: 'WH GAT G Z GRP PET 28OZ 1P15C', batch: '112125DL', loc: '3000', mfg: '11/24/20...', action: 'Unassigned', sub: '', extend: '' },
+        { plant: '3994', plantName: '', material: '000000000300054643<br><span class="text-neutral-500">010052000103127000</span>', name: 'WH GAT CHR PET 12OZ 12P2C GLCR', batch: '112125FS', loc: '3000', mfg: '11/24/20...', action: 'No Action', sub: 'Not Transf...', extend: '' },
+        { plant: '8225<br><span class="text-neutral-500">3264</span>', plantName: 'GATORADE DC TRACY CA', material: '000000000300052736<br><span class="text-neutral-500">010052000241201009</span>', name: 'WH GA LQ CRE 24OZ 24CS LL KENNY', batch: '111025AZ', loc: '3000', mfg: '11/10/20...', action: 'Unassigned', sub: '', extend: '' },
+        { plant: '8290<br><span class="text-neutral-500">3944</span>', plantName: 'QUAKER DC LANCASTER TX', material: '000000000300054834<br><span class="text-neutral-500">000052000063455000</span>', name: 'WH GAT GTRLT PNPLMGO PET 20OZ 1PK 12CS', batch: '5268839002', loc: '3000', mfg: '09/25/20...', action: 'Unassigned', sub: '', extend: '' },
+        { plant: '2204', plantName: 'QUAKER DC BLUE SPRINGS MO', material: '000000000300054643<br><span class="text-neutral-500">010052000103127000</span>', name: 'WH GAT CHR PET 12OZ 12P2C GLCR', batch: '111225FS', loc: '3000', mfg: '11/10/20...', action: 'Unassigned', sub: '', extend: '' },
+        { plant: '3971', plantName: 'QUAKER DC TOLLESON AZ', material: '000000000300054706<br><span class="text-neutral-500">010052000047681000</span>', name: 'WH GAT LMNDCMBER PET 12OZ 12P2C', batch: '120225AZ', loc: '3000', mfg: '12/01/20...', action: 'Unassigned', sub: '', extend: '' }
+    ];
 
-            tr.innerHTML = `
-                <td class="px-base py-sm w-10 text-center border-r border-neutral-200 align-top"><input type="checkbox" class="rounded-base border-neutral-300 mt-1"></td>
-                <td class="px-base py-sm border-r border-neutral-200 text-neutral-900 font-mono tracking-tight align-top">${row.plant}</td>
-                <td class="px-base py-sm border-r border-neutral-200 max-w-[200px] truncate text-neutral-700 font-sans align-top" title="${row.plantName}">${row.plantName}</td>
-                <td class="px-base py-sm border-r border-neutral-200 text-neutral-900 font-mono tracking-tight align-top">${row.material}</td>
-                <td class="px-base py-sm border-r border-neutral-200 max-w-[250px] truncate text-neutral-700 font-sans align-top" title="${row.name}">${row.name}</td>
-                <td class="px-base py-sm border-r border-neutral-200 text-neutral-900 font-mono tracking-tight align-top">${row.batch}</td>
-                <td class="px-base py-sm border-r border-neutral-200 text-neutral-900 font-mono tracking-tight align-top text-center">${row.stcLoc}</td>
-                <td class="px-base py-sm border-r border-neutral-200 align-top">${actionSelect}</td>
-                <td class="px-base py-sm border-r border-neutral-200 align-top">
-                    <select class="border border-neutral-200 rounded-base px-2 py-1 text-neutral-400 bg-neutral-50 w-full text-[13px] font-sans focus:outline-none cursor-not-allowed appearance-none" disabled>
-                        <option>--</option>
-                    </select>
-                </td>
-                <td class="px-base py-sm border-r border-neutral-200 flex items-center justify-between align-top">
-                    <select class="border border-neutral-200 rounded-base px-2 py-1 text-neutral-400 bg-neutral-50 w-[70%] text-[13px] font-sans focus:outline-none cursor-not-allowed appearance-none" disabled>
-                        <option>--</option>
-                    </select>
-                    <i data-lucide="check" class="w-4 h-4 text-neutral-400"></i>
-                </td>
+    function renderAccordionList() {
+        const accordionContainer = document.getElementById('accordion-list');
+        if (!accordionContainer) return;
+        
+        accordionContainer.innerHTML = '';
+        
+        accordionData.forEach((item, index) => {
+            const div = document.createElement('div');
+            
+            const borderClass = item.expanded ? 'border-neutral-200 shadow-sm' : 'border-neutral-200';
+            const bgClass = item.expanded ? 'bg-[#F8F9FA]' : 'bg-white hover:bg-neutral-50';
+            const icon = item.expanded ? 'chevron-down' : 'chevron-right';
+            
+            div.className = `border ${borderClass} rounded-[4px] overflow-hidden transition-colors flex-shrink-0`;
+            
+            let innerContent = '';
+            if (item.expanded) {
+                let rowsHTML = innerTableData.map(row => `
+                    <tr class="border-b border-neutral-100 last:border-0 hover:bg-neutral-50 transition-colors text-[14px] bg-white">
+                        <td class="px-4 py-2.5 font-mono text-neutral-900 align-middle leading-tight">${row.plant}</td>
+                        <td class="px-4 py-2.5 font-sans text-neutral-900 align-middle">${row.plantName}</td>
+                        <td class="px-4 py-2.5 font-mono text-neutral-900 align-middle leading-tight">${row.material}</td>
+                        <td class="px-4 py-2.5 font-sans text-neutral-700 max-w-[150px] truncate align-middle" title="${row.name}">${row.name}</td>
+                        <td class="px-4 py-2.5 font-mono text-neutral-900 align-middle">${row.batch}</td>
+                        <td class="px-4 py-2.5 font-mono text-neutral-900 text-center align-middle">${row.loc}</td>
+                        <td class="px-4 py-2.5 font-mono text-neutral-900 align-middle">${row.mfg}</td>
+                        <td class="px-4 py-2.5 align-middle">
+                            <select class="border border-neutral-300 rounded px-2 py-1.5 text-neutral-700 bg-white w-full max-w-[110px] text-ellipsis overflow-hidden whitespace-nowrap text-[14px] font-sans focus:outline-none focus:border-primary-500 shadow-sm appearance-none" style="background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23475569%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 6px center; background-size: 14px;">
+                                <option value="Unassigned" ${row.action.includes('Unassigned') ? 'selected' : ''}>Unassigned</option>
+                                <option value="Keep" ${row.action.includes('Keep') ? 'selected' : ''}>Keep</option>
+                                <optgroup label="STO Options">
+                                    <option value="STO_1" ${row.action.includes('STO') ? 'selected' : ''}>STO (8263/2206 - PCNA DC JOLIET ECOMM SVC IL)</option>
+                                    <option value="STO_2">STO (8255/3442 - PCNA-CARLISLE SERVICE CENTER)</option>
+                                </optgroup>
+                                <option value="No Action" ${row.action.includes('No Action') ? 'selected' : ''}>No Action</option>
+                            </select>
+                        </td>
+                        <td class="px-4 py-2.5 align-middle">
+                            ${row.sub ? `
+                            <select class="border border-neutral-300 rounded px-2 py-1.5 text-neutral-700 bg-white w-full max-w-[100px] text-ellipsis overflow-hidden whitespace-nowrap text-[14px] font-sans focus:outline-none focus:border-primary-500 shadow-sm appearance-none" style="background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23475569%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 6px center; background-size: 14px;">
+                                <option>${row.sub}</option>
+                            </select>
+                            ` : ''}
+                        </td>
+                        <td class="px-4 py-2.5 align-middle">
+                            ${row.extend ? `
+                            <select class="border border-neutral-300 rounded px-2 py-1.5 text-neutral-700 bg-white w-full max-w-[80px] text-[14px] font-sans focus:outline-none focus:border-primary-500 shadow-sm appearance-none" style="background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23475569%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 6px center; background-size: 14px;">
+                                <option>${row.extend}</option>
+                            </select>
+                            ` : ''}
+                        </td>
+                        <td class="px-4 py-2.5 text-center align-middle">
+                            <button class="w-6 h-6 border border-neutral-300 rounded flex items-center justify-center bg-white hover:bg-neutral-50"><i data-lucide="check" class="w-4 h-4 text-neutral-400"></i></button>
+                        </td>
+                    </tr>
+                `).join('');
+                
+                innerContent = `
+                    <div class="overflow-x-auto border-t border-neutral-200 pb-2 bg-white">
+                        <table class="w-full text-left whitespace-nowrap min-w-[1300px]">
+                            <thead class="text-[11px] leading-tight text-neutral-900 font-bold uppercase tracking-wider border-b border-neutral-200 sticky top-0 bg-[#F8F9FA] z-10">
+                                <tr>
+                                    <th class="px-4 py-2 cursor-pointer"><div class="flex items-center gap-1">PLANT <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
+                                    <th class="px-4 py-2 cursor-pointer"><div class="flex items-center gap-1">PLANT NAME <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
+                                    <th class="px-4 py-2 cursor-pointer"><div class="flex items-center gap-1">MATERIAL <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
+                                    <th class="px-4 py-2 cursor-pointer"><div class="flex items-center gap-1">NAME <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
+                                    <th class="px-4 py-2 cursor-pointer"><div class="flex items-center gap-1">BATCH <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
+                                    <th class="px-4 py-2 cursor-pointer"><div class="flex items-center gap-1">STORAGE<br>LOCATION <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
+                                    <th class="px-4 py-2 cursor-pointer"><div class="flex items-center gap-1">MFG DATE <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
+                                    <th class="px-4 py-2 cursor-pointer"><div class="flex items-center gap-1">ASSIGNED<br>ACTION <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
+                                    <th class="px-4 py-2 cursor-pointer"><div class="flex items-center gap-1">SUB ACTION <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
+                                    <th class="px-4 py-2 cursor-pointer"><div class="flex items-center gap-1">EXTEND <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
+                                    <th class="px-4 py-2 text-center align-middle"><div class="w-6 h-6 border border-neutral-300 rounded flex items-center justify-center bg-white mx-auto"><i data-lucide="check" class="w-4 h-4 text-neutral-400"></i></div></th>
+                                </tr>
+                            </thead>
+                            <tbody id="inner-table-body-${index}">
+                                ${rowsHTML}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+
+            div.innerHTML = `
+                <div class="${bgClass} flex items-center justify-between px-4 py-3 cursor-pointer">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="${icon}" class="w-4 h-4 text-neutral-500"></i>
+                        <div class="w-2 h-2 rounded-full bg-[#F5A623]"></div>
+                        <span class="text-[13px] font-sans text-neutral-900"><strong class="font-bold">${item.origin}</strong> (${item.originName}) &rarr; <strong class="font-bold">${item.dest}</strong>/${item.destName}</span>
+                    </div>
+                    <div class="flex items-center gap-8 text-[13px] text-neutral-700 font-sans">
+                        <span>${item.metrics}</span>
+                        <span>TRANSP: ${item.transp}</span>
+                        <span>MITIGATED: ${item.mitigated}</span>
+                    </div>
+                </div>
+                ${innerContent}
             `;
-            tableBody.appendChild(tr);
+            
+            accordionContainer.appendChild(div);
         });
+        
         if(window.lucide) lucide.createIcons();
     }
-    renderTable();
+    
+    renderAccordionList();
 
     // --- PANEL TOGGLE LOGIC ---
     const mainContent = document.getElementById('main-content');
+    const historyBtn = document.getElementById('history-btn');
+    const historyView = document.getElementById('history-view');
+
+    function toggleHistory() {
+        if (historyView.classList.contains('hidden')) {
+            historyView.classList.remove('hidden');
+            historyView.classList.add('flex');
+            historyBtn.classList.add('bg-copilot-brand/10');
+        } else {
+            historyView.classList.add('hidden');
+            historyView.classList.remove('flex');
+            historyBtn.classList.remove('bg-copilot-brand/10');
+        }
+    }
+
+    if (historyBtn) historyBtn.addEventListener('click', toggleHistory);
 
     function openPanel() {
         copilotPanel.classList.remove('translate-x-full');
@@ -70,6 +174,14 @@ document.addEventListener("DOMContentLoaded", () => {
         // Revert push on desktop
         mainContent.style.paddingRight = '0px';
         panelOverlay.classList.add('opacity-0');
+        
+        // Hide history if open
+        if (historyView && !historyView.classList.contains('hidden')) {
+            historyView.classList.add('hidden');
+            historyView.classList.remove('flex');
+            if (historyBtn) historyBtn.classList.remove('bg-copilot-brand/10');
+        }
+
         setTimeout(() => { panelOverlay.classList.add('hidden'); }, 300);
     }
 
@@ -107,8 +219,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
                 <h3 class="text-center text-[22px] font-bold text-neutral-900 leading-[1.3] mb-6 tracking-tight font-sans">Hi Mariana,<br>Welcome back! How Can I help?</h3>
                 <div class="flex gap-3">
-                    <button onclick="window.startMoveBatch()" class="bg-neutral-100 hover:bg-neutral-200 text-neutral-700 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors border border-transparent hover:border-neutral-300">Move a batch</button>
-                    <button onclick="window.sendQuickReply('Give me the summary')" class="bg-neutral-100 hover:bg-neutral-200 text-neutral-700 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors border border-transparent hover:border-neutral-300">Give me the summary</button>
+                    <button onclick="window.startMoveBatch()" class="bg-neutral-100 hover:bg-neutral-200 text-neutral-700 px-4 py-2.5 rounded-lg text-sm font-normal transition-colors border border-transparent hover:border-neutral-300">Move a batch</button>
+                    <button onclick="window.sendQuickReply('Give me the summary')" class="bg-neutral-100 hover:bg-neutral-200 text-neutral-700 px-4 py-2.5 rounded-lg text-sm font-normal transition-colors border border-transparent hover:border-neutral-300">Give me the summary</button>
                 </div>
             </div>
         `;
@@ -441,24 +553,29 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
             <div class="w-full">
                 <!-- Structured Summary Card -->
-                <div class="bg-white border border-neutral-200 rounded-lg p-4 shadow-sm mb-3 w-full">
-                    <div class="flex items-center gap-2 mb-2">
-                        <i data-lucide="bar-chart-2" class="w-4 h-4 text-copilot-brand"></i>
-                        <h4 class="text-[12px] font-bold text-neutral-900 uppercase tracking-wider">${summary.title}</h4>
+                <div class="bg-white border border-neutral-200 rounded-[8px] p-4 shadow-sm mb-3 w-full relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-copilot-brand opacity-80"></div>
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="w-6 h-6 rounded bg-copilot-bg flex items-center justify-center text-copilot-brand">
+                            <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>
+                        </div>
+                        <h4 class="text-[12px] font-bold text-neutral-600 uppercase tracking-widest">${summary.title}</h4>
                     </div>
-                    <div class="text-[28px] font-bold text-neutral-900 mb-3 tracking-tight leading-none">${summary.mainValue}</div>
+                    <div class="text-[26px] font-bold text-neutral-900 mb-4 tracking-tight leading-none">${summary.mainValue}</div>
                     
-                    <div class="mb-3 border-t border-neutral-100 pt-2">
+                    <div class="mb-3">
                         ${breakdownHTML}
                     </div>
-                    <p class="text-[11px] text-neutral-500 flex items-center gap-1"><i data-lucide="info" class="w-3.5 h-3.5"></i> ${summary.context}</p>
+                    <div class="bg-neutral-50 rounded-md p-2 mt-2 border border-neutral-100">
+                        <p class="text-[11px] text-neutral-500 flex items-start gap-1.5 leading-snug"><i data-lucide="info" class="w-3.5 h-3.5 shrink-0 text-neutral-400 mt-0.5"></i> <span>${summary.context}</span></p>
+                    </div>
                 </div>
                 
                 <p class="text-[13px] text-neutral-900 mb-2">Would you like to explore this further?</p>
                 <div class="flex flex-wrap gap-2">
-                    <button onclick="window.sendQuickReply('Break it down by origin')" class="quick-reply-btn bg-white hover:bg-neutral-50 text-neutral-700 border border-neutral-200 px-3 py-1.5 rounded-full text-[12px] font-medium transition-colors shadow-sm">Break it down by origin</button>
-                    <button onclick="window.sendQuickReply('Show destinations')" class="quick-reply-btn bg-white hover:bg-neutral-50 text-neutral-700 border border-neutral-200 px-3 py-1.5 rounded-full text-[12px] font-medium transition-colors shadow-sm">Show destinations</button>
-                    <button onclick="window.sendQuickReply('Total weight')" class="quick-reply-btn bg-white hover:bg-neutral-50 text-neutral-700 border border-neutral-200 px-3 py-1.5 rounded-full text-[12px] font-medium transition-colors shadow-sm">Total weight</button>
+                    <button onclick="window.sendQuickReply('Break it down by origin')" class="quick-reply-btn bg-white hover:bg-neutral-50 text-neutral-700 border border-neutral-200 px-3 py-1.5 rounded-full text-[12px] font-normal transition-colors shadow-sm">Break it down by origin</button>
+                    <button onclick="window.sendQuickReply('Show destinations')" class="quick-reply-btn bg-white hover:bg-neutral-50 text-neutral-700 border border-neutral-200 px-3 py-1.5 rounded-full text-[12px] font-normal transition-colors shadow-sm">Show destinations</button>
+                    <button onclick="window.sendQuickReply('Total weight')" class="quick-reply-btn bg-white hover:bg-neutral-50 text-neutral-700 border border-neutral-200 px-3 py-1.5 rounded-full text-[12px] font-normal transition-colors shadow-sm">Total weight</button>
                 </div>
             </div>
         `;
@@ -598,37 +715,28 @@ document.addEventListener("DOMContentLoaded", () => {
         prefillInput("That's all, thanks.");
         scrollToBottom();
 
-        // 🚨 HIGHLIGHT ROW 2 (index 1) to match the image prototype
-        const highlightRow = tableBody.children[1];
-        highlightRow.classList.remove('hover:bg-neutral-100'); // remove hover color
-        highlightRow.classList.add('bg-[#F3F0FF]', 'transition-all', 'duration-500'); // Persistent purple background
-        
-        // Change action select
-        const actionSelect = highlightRow.querySelectorAll('select')[0];
-        // Populate the select with a "Text Value" option if it doesn't have it
-        if (!Array.from(actionSelect.options).some(opt => opt.value === "Text Value")) {
-             actionSelect.innerHTML += '<option value="Text Value">Text Value</option>';
-        }
-        actionSelect.value = "Text Value"; 
-        actionSelect.classList.remove('border-neutral-300');
-        actionSelect.classList.add('border-copilot-brand', 'text-copilot-brand', 'font-medium', 'ring-1', 'ring-copilot-brand');
-        
-        // Target the Extend column specific inner structure for highlight
-        const extendTd = highlightRow.children[9];
-        extendTd.classList.add('border-2', 'border-copilot-brand', 'rounded-sm', 'bg-[#F3F0FF]', 'relative');
-        extendTd.classList.remove('border-neutral-200');
-        
-        // Update the checkmark icon
-        const rowCheck = extendTd.querySelector('i[data-lucide="check"]');
-        if(rowCheck) {
-            rowCheck.outerHTML = `<div class="w-5 h-5 rounded border border-copilot-brand bg-white flex items-center justify-center shrink-0 absolute right-4 top-1/2 -translate-y-1/2"><i data-lucide="check" class="w-3.5 h-3.5 text-copilot-brand stroke-[3]"></i></div>`;
-        }
-
-        // Check the main row checkbox
-        const mainCheck = highlightRow.querySelector('input[type="checkbox"]');
-        if(mainCheck) {
-            mainCheck.checked = true;
-            mainCheck.classList.add('accent-copilot-brand');
+        // 🚨 HIGHLIGHT ROW 1 (index 0) of the expanded accordion to simulate the AI action
+        const innerTableBody = document.getElementById('inner-table-body-0');
+        if (innerTableBody) {
+            const highlightRow = innerTableBody.children[0];
+            highlightRow.classList.add('bg-[#F3F0FF]', 'transition-all', 'duration-500'); // Persistent purple background
+            
+            // Target the ASSIGNED ACTION select (index 0 of selects inside the row)
+            const actionSelect = highlightRow.querySelectorAll('select')[0];
+            if (actionSelect) {
+                actionSelect.innerHTML = '<option value="Assigned">Assigned</option>';
+                actionSelect.classList.remove('border-neutral-300', 'text-neutral-700');
+                actionSelect.classList.add('border-copilot-brand', 'text-copilot-brand', 'font-medium', 'ring-1', 'ring-copilot-brand');
+            }
+            
+            // Update the checkbox button in the final column
+            const btnTd = highlightRow.children[10]; // Note: index changed due to more columns
+            const btn = btnTd.querySelector('button');
+            if (btn) {
+                btn.classList.remove('border-neutral-300', 'bg-white', 'hover:bg-neutral-50');
+                btn.classList.add('border-copilot-brand', 'bg-copilot-brand');
+                btn.innerHTML = '<i data-lucide="check" class="w-4 h-4 text-white"></i>';
+            }
         }
         
         if(window.lucide) lucide.createIcons();
