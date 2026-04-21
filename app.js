@@ -22,19 +22,54 @@ document.addEventListener("DOMContentLoaded", () => {
         { origin: '3227', originName: 'QUAKER DC CEDAR RAPIDS IA', dest: '8263', destName: '2206 (PCNA DC JOLIET ECOMM SVC IL)', metrics: '1 Item, 39 CS, 1 PAL, 278 LBS, 0.02 Trucks', transp: '$584', mitigated: '$536', expanded: false }
     ];
 
-    const innerTableData = [
-        { plant: '8225<br><span class="text-neutral-500">3264</span>', plantName: 'Tracy', material: '000000000300055075<br><span class="text-neutral-500">010052000054993000</span>', name: 'WH GAT GTRLT GLFRZ PET 20OZ 1PK 12CS', batch: '111425FS', loc: '3088', mfg: '11/18/20...', action: 'No Action', sub: 'Low/No De...', extend: '' },
-        { plant: '8295<br><span class="text-neutral-500">4024</span>', plantName: 'US-DC-DALLAS-TX-QSDI', material: '000000000300054642<br><span class="text-neutral-500">010052000102458000</span>', name: 'WH GAT CHR PET 20OZ 8P3C', batch: '111525DL', loc: '3000', mfg: '11/15/20...', action: 'Unassigned', sub: '', extend: '' },
-        { plant: '8170<br><span class="text-neutral-500">4040</span>', plantName: 'US-DC-LAKELAND-FL-QSDI-SVC', material: '000000000300052726<br><span class="text-neutral-500">010052000204084004</span>', name: 'WH GA LIQ 20OZ 6/4PK FP COC', batch: '53368B66XX', loc: '3000', mfg: '12/02/20...', action: 'Unassigned', sub: '', extend: '' },
+    let innerTableData = [
+        { plant: '8225<br><span class="text-neutral-500 text-[10px] font-normal">3264</span>', plantName: 'Tracy', material: '000000000300055075<br><span class="text-neutral-500 text-[10px] font-normal">010052000054993000</span>', name: 'WH GAT GTRLT GLFRZ PET 20OZ 1PK 12CS', batch: '111425FS', loc: '3088', mfg: '11/18/20...', action: 'No Action', sub: 'Low/No De...', extend: '' },
+        { plant: '8295<br><span class="text-neutral-500 text-[10px] font-normal">4024</span>', plantName: 'US-DC-DALLAS-TX-QSDI', material: '000000000300054642<br><span class="text-neutral-500 text-[10px] font-normal">010052000102458000</span>', name: 'WH GAT CHR PET 20OZ 8P3C', batch: '111525DL', loc: '3000', mfg: '11/15/20...', action: 'Unassigned', sub: '', extend: '' },
+        { plant: '8170<br><span class="text-neutral-500 text-[10px] font-normal">4040</span>', plantName: 'US-DC-LAKELAND-FL-QSDI-SVC', material: '000000000300052726<br><span class="text-neutral-500 text-[10px] font-normal">010052000204084004</span>', name: 'WH GA LIQ 20OZ 6/4PK FP COC', batch: '53368B66XX', loc: '3000', mfg: '12/02/20...', action: 'Unassigned', sub: '', extend: '' },
         { plant: '8B66', plantName: 'BROOKSHIRE PGT', material: '000000000300038329', name: 'WH GAT GTRLT GLFRZ PET 20OZ 1PK 12CS', batch: '111425FS', loc: '3088', mfg: '11/18/20...', action: 'Unassigned', sub: '', extend: '' },
-        { plant: '8B66', plantName: 'BROOKSHIRE PGT', material: '000000000300055075<br><span class="text-neutral-500">010052000054993000</span>', name: 'WH GAT GTRLT GLFRZ PET 20OZ 1PK 12CS', batch: '111425FS', loc: '3088', mfg: '11/18/20...', action: 'STO (826...', sub: '--', extend: '45 Da...' },
-        { plant: '8263<br><span class="text-neutral-500">2206</span>', plantName: 'PCNA DC JOLIET ECOMM SVC IL', material: '000000000300055483<br><span class="text-neutral-500">010052000043270000</span>', name: 'WH GAT G Z GRP PET 28OZ 1P15C', batch: '112125DL', loc: '3000', mfg: '11/24/20...', action: 'Unassigned', sub: '', extend: '' },
-        { plant: '3994', plantName: '', material: '000000000300054643<br><span class="text-neutral-500">010052000103127000</span>', name: 'WH GAT CHR PET 12OZ 12P2C GLCR', batch: '112125FS', loc: '3000', mfg: '11/24/20...', action: 'No Action', sub: 'Not Transf...', extend: '' },
-        { plant: '8225<br><span class="text-neutral-500">3264</span>', plantName: 'GATORADE DC TRACY CA', material: '000000000300052736<br><span class="text-neutral-500">010052000241201009</span>', name: 'WH GA LQ CRE 24OZ 24CS LL KENNY', batch: '111025AZ', loc: '3000', mfg: '11/10/20...', action: 'Unassigned', sub: '', extend: '' },
-        { plant: '8290<br><span class="text-neutral-500">3944</span>', plantName: 'QUAKER DC LANCASTER TX', material: '000000000300054834<br><span class="text-neutral-500">000052000063455000</span>', name: 'WH GAT GTRLT PNPLMGO PET 20OZ 1PK 12CS', batch: '5268839002', loc: '3000', mfg: '09/25/20...', action: 'Unassigned', sub: '', extend: '' },
-        { plant: '2204', plantName: 'QUAKER DC BLUE SPRINGS MO', material: '000000000300054643<br><span class="text-neutral-500">010052000103127000</span>', name: 'WH GAT CHR PET 12OZ 12P2C GLCR', batch: '111225FS', loc: '3000', mfg: '11/10/20...', action: 'Unassigned', sub: '', extend: '' },
-        { plant: '3971', plantName: 'QUAKER DC TOLLESON AZ', material: '000000000300054706<br><span class="text-neutral-500">010052000047681000</span>', name: 'WH GAT LMNDCMBER PET 12OZ 12P2C', batch: '120225AZ', loc: '3000', mfg: '12/01/20...', action: 'Unassigned', sub: '', extend: '' }
+        { plant: '8B66', plantName: 'BROOKSHIRE PGT', material: '000000000300055075<br><span class="text-neutral-500 text-[10px] font-normal">010052000054993000</span>', name: 'WH GAT GTRLT GLFRZ PET 20OZ 1PK 12CS', batch: '111425FS', loc: '3088', mfg: '11/18/20...', action: 'STO (826...', sub: '--', extend: '45 Da...' },
+        { plant: '8263<br><span class="text-neutral-500 text-[10px] font-normal">2206</span>', plantName: 'PCNA DC JOLIET ECOMM SVC IL', material: '000000000300055483<br><span class="text-neutral-500 text-[10px] font-normal">010052000043270000</span>', name: 'WH GAT G Z GRP PET 28OZ 1P15C', batch: '112125DL', loc: '3000', mfg: '11/24/20...', action: 'Unassigned', sub: '', extend: '' },
+        { plant: '3994', plantName: '', material: '000000000300054643<br><span class="text-neutral-500 text-[10px] font-normal">010052000103127000</span>', name: 'WH GAT CHR PET 12OZ 12P2C GLCR', batch: '112125FS', loc: '3000', mfg: '11/24/20...', action: 'No Action', sub: 'Not Transf...', extend: '' },
+        { plant: '8225<br><span class="text-neutral-500 text-[10px] font-normal">3264</span>', plantName: 'GATORADE DC TRACY CA', material: '000000000300052736<br><span class="text-neutral-500 text-[10px] font-normal">010052000241201009</span>', name: 'WH GA LQ CRE 24OZ 24CS LL KENNY', batch: '111025AZ', loc: '3000', mfg: '11/10/20...', action: 'Unassigned', sub: '', extend: '' },
+        { plant: '8290<br><span class="text-neutral-500 text-[10px] font-normal">3944</span>', plantName: 'QUAKER DC LANCASTER TX', material: '000000000300054834<br><span class="text-neutral-500 text-[10px] font-normal">000052000063455000</span>', name: 'WH GAT GTRLT PNPLMGO PET 20OZ 1PK 12CS', batch: '5268839002', loc: '3000', mfg: '09/25/20...', action: 'Unassigned', sub: '', extend: '' },
+        { plant: '2204', plantName: 'QUAKER DC BLUE SPRINGS MO', material: '000000000300054643<br><span class="text-neutral-500 text-[10px] font-normal">010052000103127000</span>', name: 'WH GAT CHR PET 12OZ 12P2C GLCR', batch: '111225FS', loc: '3000', mfg: '11/10/20...', action: 'Unassigned', sub: '', extend: '' },
+        { plant: '3971', plantName: 'QUAKER DC TOLLESON AZ', material: '000000000300054706<br><span class="text-neutral-500 text-[10px] font-normal">010052000047681000</span>', name: 'WH GAT LMNDCMBER PET 12OZ 12P2C', batch: '120225AZ', loc: '3000', mfg: '12/01/20...', action: 'Unassigned', sub: '', extend: '' }
     ];
+
+    let currentSort = { column: null, asc: true };
+
+    window.sortTable = function(column, accordionIndex) {
+        if (currentSort.column === column) {
+            currentSort.asc = !currentSort.asc;
+        } else {
+            currentSort.column = column;
+            currentSort.asc = true;
+        }
+        
+        innerTableData.sort((a, b) => {
+            let valA = (a[column] || '').toString().replace(/<[^>]*>?/gm, '').trim();
+            let valB = (b[column] || '').toString().replace(/<[^>]*>?/gm, '').trim();
+            
+            let numA = parseFloat(valA.replace(/[^0-9.-]+/g,""));
+            let numB = parseFloat(valB.replace(/[^0-9.-]+/g,""));
+            
+            let isNumA = !isNaN(numA) && valA.match(/\d+/);
+            let isNumB = !isNaN(numB) && valB.match(/\d+/);
+
+            if (isNumA && isNumB) {
+                return currentSort.asc ? numA - numB : numB - numA;
+            }
+            
+            return currentSort.asc ? valA.localeCompare(valB) : valB.localeCompare(valA);
+        });
+
+        renderAccordionList(); // Re-render to show sorted data
+    };
+
+    window.toggleAccordion = function(index) {
+        accordionData[index].expanded = !accordionData[index].expanded;
+        renderAccordionList();
+    };
 
     function renderAccordionList() {
         const accordionContainer = document.getElementById('accordion-list');
@@ -54,16 +89,16 @@ document.addEventListener("DOMContentLoaded", () => {
             let innerContent = '';
             if (item.expanded) {
                 let rowsHTML = innerTableData.map(row => `
-                    <tr class="border-b border-neutral-100 last:border-0 hover:bg-neutral-50 transition-colors text-[14px] bg-white">
-                        <td class="px-4 py-2.5 font-mono text-neutral-900 align-middle leading-tight">${row.plant}</td>
-                        <td class="px-4 py-2.5 font-sans text-neutral-900 align-middle">${row.plantName}</td>
-                        <td class="px-4 py-2.5 font-mono text-neutral-900 align-middle leading-tight">${row.material}</td>
-                        <td class="px-4 py-2.5 font-sans text-neutral-700 max-w-[150px] truncate align-middle" title="${row.name}">${row.name}</td>
-                        <td class="px-4 py-2.5 font-mono text-neutral-900 align-middle">${row.batch}</td>
-                        <td class="px-4 py-2.5 font-mono text-neutral-900 text-center align-middle">${row.loc}</td>
-                        <td class="px-4 py-2.5 font-mono text-neutral-900 align-middle">${row.mfg}</td>
-                        <td class="px-4 py-2.5 align-middle">
-                            <select class="border border-neutral-300 rounded px-2 py-1.5 text-neutral-700 bg-white w-full max-w-[110px] text-ellipsis overflow-hidden whitespace-nowrap text-[14px] font-sans focus:outline-none focus:border-primary-500 shadow-sm appearance-none" style="background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23475569%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 6px center; background-size: 14px;">
+                    <tr class="border-b border-neutral-100 last:border-0 hover:bg-neutral-50 transition-colors text-[13px] bg-white">
+                        <td class="px-4 py-2 font-mono font-normal text-neutral-700 align-middle leading-tight">${row.plant}</td>
+                        <td class="px-4 py-2 font-sans text-neutral-700 align-middle">${row.plantName}</td>
+                        <td class="px-4 py-2 font-mono font-normal text-neutral-700 align-middle leading-tight">${row.material}</td>
+                        <td class="px-4 py-2 font-sans text-neutral-600 max-w-[150px] truncate align-middle" title="${row.name}">${row.name}</td>
+                        <td class="px-4 py-2 font-sans text-neutral-700 align-middle">${row.batch}</td>
+                        <td class="px-4 py-2 font-mono font-normal text-neutral-700 text-center align-middle">${row.loc}</td>
+                        <td class="px-4 py-2 font-sans text-neutral-700 align-middle">${row.mfg}</td>
+                        <td class="px-4 py-2 align-middle">
+                            <select class="border border-neutral-200 rounded px-2 py-1 text-neutral-600 bg-transparent w-full max-w-[110px] text-ellipsis overflow-hidden whitespace-nowrap text-[13px] font-sans focus:outline-none focus:border-neutral-300 appearance-none" style="background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%236B7280%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 6px center; background-size: 14px;">
                                 <option value="Unassigned" ${row.action.includes('Unassigned') ? 'selected' : ''}>Unassigned</option>
                                 <option value="Keep" ${row.action.includes('Keep') ? 'selected' : ''}>Keep</option>
                                 <optgroup label="STO Options">
@@ -73,22 +108,22 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <option value="No Action" ${row.action.includes('No Action') ? 'selected' : ''}>No Action</option>
                             </select>
                         </td>
-                        <td class="px-4 py-2.5 align-middle">
+                        <td class="px-4 py-2 align-middle">
                             ${row.sub ? `
-                            <select class="border border-neutral-300 rounded px-2 py-1.5 text-neutral-700 bg-white w-full max-w-[100px] text-ellipsis overflow-hidden whitespace-nowrap text-[14px] font-sans focus:outline-none focus:border-primary-500 shadow-sm appearance-none" style="background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23475569%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 6px center; background-size: 14px;">
+                            <select class="border border-neutral-200 rounded px-2 py-1 text-neutral-600 bg-transparent w-full max-w-[100px] text-ellipsis overflow-hidden whitespace-nowrap text-[13px] font-sans focus:outline-none focus:border-neutral-300 appearance-none" style="background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%236B7280%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 6px center; background-size: 14px;">
                                 <option>${row.sub}</option>
                             </select>
                             ` : ''}
                         </td>
-                        <td class="px-4 py-2.5 align-middle">
+                        <td class="px-4 py-2 align-middle">
                             ${row.extend ? `
-                            <select class="border border-neutral-300 rounded px-2 py-1.5 text-neutral-700 bg-white w-full max-w-[80px] text-[14px] font-sans focus:outline-none focus:border-primary-500 shadow-sm appearance-none" style="background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23475569%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 6px center; background-size: 14px;">
+                            <select class="border border-neutral-200 rounded px-2 py-1 text-neutral-600 bg-transparent w-full max-w-[80px] text-[13px] font-sans focus:outline-none focus:border-neutral-300 appearance-none" style="background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%236B7280%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 6px center; background-size: 14px;">
                                 <option>${row.extend}</option>
                             </select>
                             ` : ''}
                         </td>
-                        <td class="px-4 py-2.5 text-center align-middle">
-                            <button class="w-6 h-6 border border-neutral-300 rounded flex items-center justify-center bg-white hover:bg-neutral-50"><i data-lucide="check" class="w-4 h-4 text-neutral-400"></i></button>
+                        <td class="px-4 py-2 text-center align-middle">
+                            <button class="w-[24px] h-[24px] border border-neutral-300 rounded-[4px] flex items-center justify-center bg-white hover:border-[#1890FF] hover:bg-neutral-50 transition-colors group"><i data-lucide="check" class="w-4 h-4 text-neutral-300 group-hover:text-[#1890FF] transition-colors"></i></button>
                         </td>
                     </tr>
                 `).join('');
@@ -96,19 +131,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 innerContent = `
                     <div class="overflow-x-auto border-t border-neutral-200 pb-2 bg-white">
                         <table class="w-full text-left whitespace-nowrap min-w-[1300px]">
-                            <thead class="text-[11px] leading-tight text-neutral-900 font-bold uppercase tracking-wider border-b border-neutral-200 sticky top-0 bg-[#F8F9FA] z-10">
+                            <thead class="text-[10px] leading-tight text-neutral-500 font-medium uppercase tracking-wider border-b border-neutral-200 sticky top-0 bg-[#F8F9FA] z-10">
                                 <tr>
-                                    <th class="px-4 py-2 cursor-pointer"><div class="flex items-center gap-1">PLANT <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
-                                    <th class="px-4 py-2 cursor-pointer"><div class="flex items-center gap-1">PLANT NAME <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
-                                    <th class="px-4 py-2 cursor-pointer"><div class="flex items-center gap-1">MATERIAL <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
-                                    <th class="px-4 py-2 cursor-pointer"><div class="flex items-center gap-1">NAME <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
-                                    <th class="px-4 py-2 cursor-pointer"><div class="flex items-center gap-1">BATCH <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
-                                    <th class="px-4 py-2 cursor-pointer"><div class="flex items-center gap-1">STORAGE<br>LOCATION <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
-                                    <th class="px-4 py-2 cursor-pointer"><div class="flex items-center gap-1">MFG DATE <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
-                                    <th class="px-4 py-2 cursor-pointer"><div class="flex items-center gap-1">ASSIGNED<br>ACTION <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
-                                    <th class="px-4 py-2 cursor-pointer"><div class="flex items-center gap-1">SUB ACTION <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
-                                    <th class="px-4 py-2 cursor-pointer"><div class="flex items-center gap-1">EXTEND <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
-                                    <th class="px-4 py-2 text-center align-middle"><div class="w-6 h-6 border border-neutral-300 rounded flex items-center justify-center bg-white mx-auto"><i data-lucide="check" class="w-4 h-4 text-neutral-400"></i></div></th>
+                                    <th class="px-4 py-2 cursor-pointer" onclick="window.sortTable('plant', ${index})"><div class="flex items-center gap-1">PLANT <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
+                                    <th class="px-4 py-2 cursor-pointer" onclick="window.sortTable('plantName', ${index})"><div class="flex items-center gap-1">PLANT NAME <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
+                                    <th class="px-4 py-2 cursor-pointer" onclick="window.sortTable('material', ${index})"><div class="flex items-center gap-1">MATERIAL <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
+                                    <th class="px-4 py-2 cursor-pointer" onclick="window.sortTable('name', ${index})"><div class="flex items-center gap-1">NAME <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
+                                    <th class="px-4 py-2 cursor-pointer" onclick="window.sortTable('batch', ${index})"><div class="flex items-center gap-1">BATCH <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
+                                    <th class="px-4 py-2 cursor-pointer" onclick="window.sortTable('loc', ${index})"><div class="flex items-center gap-1">STORAGE<br>LOCATION <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
+                                    <th class="px-4 py-2 cursor-pointer" onclick="window.sortTable('mfg', ${index})"><div class="flex items-center gap-1">MFG DATE <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
+                                    <th class="px-4 py-2 cursor-pointer" onclick="window.sortTable('action', ${index})"><div class="flex items-center gap-1">ASSIGNED<br>ACTION <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
+                                    <th class="px-4 py-2 cursor-pointer" onclick="window.sortTable('sub', ${index})"><div class="flex items-center gap-1">SUB ACTION <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
+                                    <th class="px-4 py-2 cursor-pointer" onclick="window.sortTable('extend', ${index})"><div class="flex items-center gap-1">EXTEND <i data-lucide="chevrons-up-down" class="w-3 h-3 text-neutral-400"></i></div></th>
+                                    <th class="px-4 py-2 text-center align-middle"><div class="w-[24px] h-[24px] border border-neutral-300 rounded-[4px] flex items-center justify-center bg-white mx-auto"><i data-lucide="check" class="w-4 h-4 text-neutral-400"></i></div></th>
                                 </tr>
                             </thead>
                             <tbody id="inner-table-body-${index}">
@@ -120,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             div.innerHTML = `
-                <div class="${bgClass} flex items-center justify-between px-4 py-3 cursor-pointer">
+                <div class="${bgClass} flex items-center justify-between px-4 py-3 cursor-pointer" onclick="window.toggleAccordion(${index})">
                     <div class="flex items-center gap-3">
                         <i data-lucide="${icon}" class="w-4 h-4 text-neutral-500"></i>
                         <div class="w-2 h-2 rounded-full bg-[#F5A623]"></div>
@@ -213,9 +248,8 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderWelcomeScreen() {
         chatBox.innerHTML = `
             <div id="welcome-screen" class="flex flex-col items-center justify-center pt-8 pb-4 w-full animate-fade-in-up">
-                <div class="relative w-24 h-24 mb-6">
-                    <div class="absolute bg-copilot-brand rounded-full w-20 h-20 top-4 left-4"></div>
-                    <img src="schippy.png" alt="Schippy" class="relative z-10 w-24 h-24 object-contain drop-shadow-md" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2565/2565174.png'">
+                <div class="mb-6 flex justify-center items-center">
+                    <img src="img/schippy-illustration.png" alt="Schippy Welcome" class="w-32 h-32 object-contain">
                 </div>
                 <h3 class="text-center text-[22px] font-bold text-neutral-900 leading-[1.3] mb-6 tracking-tight font-sans">Hi Mariana,<br>Welcome back! How Can I help?</h3>
                 <div class="flex gap-3">
@@ -230,9 +264,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const header = document.createElement('div');
         header.className = "flex flex-col items-center justify-center pt-2 pb-0 w-full animate-fade-in-up";
         header.innerHTML = `
-            <div class="relative w-[80px] h-[80px] mb-3">
-                <div class="absolute bg-copilot-brand rounded-full w-14 h-14 top-3 left-3"></div>
-                <img src="schippy.png" alt="Schippy" class="relative z-10 w-[80px] h-[80px] object-contain drop-shadow-md" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2565/2565174.png'">
+            <div class="mb-3 flex justify-center items-center">
+                <img src="img/schippy-illustration.png" alt="Schippy" class="w-20 h-20 object-contain">
             </div>
             <h3 class="text-center text-[18px] font-bold text-neutral-900 leading-snug tracking-tight font-sans mb-4">Let's move a batch!</h3>
         `;
@@ -423,7 +456,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 loadingDiv.className = "flex items-start gap-3 w-full animate-fade-in-up font-sans mt-2";
                 loadingDiv.innerHTML = `
                     <div class="w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 overflow-hidden bg-neutral-100 border border-neutral-200">
-                        <img src="schippy.png" alt="Schippy" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/2565/2565174.png'">
+                        <img src="img/schippy-avatar.png" alt="Schippy" class="w-full h-full object-cover">
                     </div>
                     <div class="text-[13px] text-neutral-900 w-full leading-[1.6] pt-[3px] font-sans">
                         <span class="text-copilot-brand flex items-center gap-2"><i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i> Querying route data...</span>
@@ -549,7 +582,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         div.innerHTML = `
             <div class="w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 overflow-hidden bg-neutral-100 border border-neutral-200">
-                <img src="schippy.png" alt="Schippy" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/2565/2565174.png'">
+                <img src="img/schippy-avatar.png" alt="Schippy" class="w-full h-full object-cover">
             </div>
             <div class="w-full">
                 <!-- Structured Summary Card -->
@@ -605,7 +638,7 @@ document.addEventListener("DOMContentLoaded", () => {
         div.innerHTML = `
             <div class="flex items-start gap-3 w-full font-sans mb-3">
                 <div class="w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 overflow-hidden bg-neutral-100 border border-neutral-200">
-                    <img src="schippy.png" alt="Schippy" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/2565/2565174.png'">
+                    <img src="img/schippy-avatar.png" alt="Schippy" class="w-full h-full object-cover">
                 </div>
                 <div class="text-[13px] text-neutral-900 w-full leading-[1.6] pt-[3px] font-sans">
                     Here's your route comparison:
@@ -686,7 +719,7 @@ document.addEventListener("DOMContentLoaded", () => {
         div.className = "flex items-start gap-3 w-full animate-fade-in-up font-sans mt-2";
         div.innerHTML = `
             <div class="w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 overflow-hidden bg-neutral-100 border border-neutral-200">
-                <img src="schippy.png" alt="Schippy" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/2565/2565174.png'">
+                <img src="img/schippy-avatar.png" alt="Schippy" class="w-full h-full object-cover">
             </div>
             <div class="text-[13px] text-neutral-900 w-full leading-[1.6] pt-[3px] font-sans">
                 <div class="flex items-start gap-2 mb-4">
@@ -750,7 +783,7 @@ document.addEventListener("DOMContentLoaded", () => {
             messageDiv.className = `flex items-start gap-3 w-full animate-fade-in-up font-sans mt-2`;
             messageDiv.innerHTML = `
                 <div class="w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 overflow-hidden bg-neutral-100 border border-neutral-200">
-                    <img src="schippy.png" alt="Schippy" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/2565/2565174.png'">
+                    <img src="img/schippy-avatar.png" alt="Schippy" class="w-full h-full object-cover">
                 </div>
                 <div class="text-[13px] text-neutral-900 w-full leading-[1.6] pt-[3px] font-sans">
                     ${content}
@@ -782,7 +815,7 @@ document.addEventListener("DOMContentLoaded", () => {
         div.className = "flex items-start gap-3 w-full animate-fade-in-up font-sans mt-2";
         div.innerHTML = `
             <div class="w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 overflow-hidden bg-neutral-100 border border-neutral-200">
-                <img src="schippy.png" alt="Schippy" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/2565/2565174.png'">
+                <img src="img/schippy-avatar.png" alt="Schippy" class="w-full h-full object-cover">
             </div>
             <div class="typing-indicator flex space-x-1 pt-2.5">
                 <span></span><span></span><span></span>

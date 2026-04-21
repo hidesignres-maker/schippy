@@ -14,7 +14,7 @@
             theme: {
                 extend: {
                     colors: {
-                        neutral: { 50: '#F8FAFC', 100: '#F1F5F9', 200: '#E2E8F0', 300: '#CBD5E1', 400: '#94A3B8', 500: '#64748B', 600: '#475569', 700: '#334155', 800: '#1E293B', 900: '#0F172A' },
+                        neutral: { 50: '#fafaf9', 100: '#f5f5f4', 200: '#e7e5e4', 300: '#d6d3d1', 400: '#a8a29e', 500: '#78716c', 600: '#57534e', 700: '#44403c', 800: '#292524', 900: '#1c1917' },
                         primary: { 50: '#D5F2FE', 100: '#BAEAFF', 500: '#0597F2', 600: '#0484D4', 700: '#03629E' },
                         info: { 50: '#F0F9FF', 500: '#0EA5E9', 700: '#0369A1' },
                         success: { 50: '#F0FDF4', 500: '#22C55E', 700: '#15803D' },
@@ -54,8 +54,8 @@
             <button class="text-white hover:bg-white/10 p-1 rounded-base flex items-center justify-center">
                 <i data-lucide="menu" class="w-5 h-5"></i>
             </button>
-            <div class="flex items-center gap-xs text-xl font-bold tracking-tight">
-                <i data-lucide="ship" class="w-6 h-6 fill-white"></i> schip.
+            <div class="flex items-center gap-xs">
+                <img src="img/schip-logo.svg" alt="Schip Logo" class="h-6 w-auto">
             </div>
         </div>
         <div class="flex items-center gap-base">
@@ -78,7 +78,7 @@
             </a>
             <div class="flex justify-between items-start md:items-center flex-col md:flex-row gap-base">
                 <div class="flex items-baseline gap-sm flex-wrap">
-                    <h1 class="text-2xl font-bold text-neutral-900">gatorade-powder-p2w4</h1>
+                    <h1 class="text-2xl font-bold text-neutral-900">Gatorade Powder P2W4</h1>
                     <span class="text-xs text-neutral-600 font-sans">Last saved: a second ago</span>
                 </div>
                 <div class="flex items-center text-sm font-normal flex-wrap">
@@ -95,11 +95,11 @@
 
         <!-- KPIs & Pills -->
         <div class="px-base md:px-xl flex flex-col sm:flex-row gap-base mb-[24px] justify-center items-center">
-            <div class="bg-[#F8F9FA] rounded-lg p-4 w-full sm:w-[165px] flex flex-col justify-start items-start">
+            <div class="bg-[#F8F9FA] border border-neutral-200 rounded-lg p-4 w-full sm:w-[165px] flex flex-col justify-start items-start">
                 <p class="text-[10px] font-bold uppercase text-neutral-900 mb-2 leading-tight">TOTAL POTENTIAL<br>CASES SAVED</p>
                 <p class="text-[35px] leading-none font-medium text-neutral-900 font-condensed">200</p>
             </div>
-            <div class="bg-[#F8F9FA] rounded-lg p-4 w-full sm:w-[165px] flex flex-col justify-start items-start">
+            <div class="bg-[#F8F9FA] border border-neutral-200 rounded-lg p-4 w-full sm:w-[165px] flex flex-col justify-start items-start">
                 <p class="text-[10px] font-bold uppercase text-neutral-900 mb-2 leading-tight">TOTAL POTENTIAL<br>SAVED</p>
                 <p class="text-[35px] leading-none font-medium text-neutral-900 font-condensed">$1,296</p>
             </div>
@@ -118,15 +118,15 @@
         <!-- Action Bar -->
         <div class="px-base md:px-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-base">
             <div class="relative w-full md:w-80 shrink-0">
-                <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-neutral-600"></i>
-                <input type="text" placeholder="Search by material id, name or batch" class="w-full pl-9 pr-3 py-2 border border-neutral-300 rounded-base text-sm font-normal focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500 text-neutral-700 placeholder-neutral-400">
+                <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400"></i>
+                <input type="text" placeholder="Search by material id, name or batch" class="w-full pl-9 pr-3 py-1.5 bg-neutral-50 border border-neutral-200 rounded-base text-sm font-normal focus:outline-none focus:border-neutral-300 text-neutral-700 placeholder-neutral-400">
             </div>
-            <div class="flex items-center gap-sm overflow-x-auto w-full md:w-auto scrollbar-hide">
-                <button class="shrink-0 bg-white border border-neutral-300 text-neutral-700 px-4 py-2 rounded-base text-sm font-normal flex items-center gap-xs hover:bg-neutral-50 transition shadow-sm">
+            <div class="flex items-center gap-[8px] overflow-x-auto w-full md:w-auto scrollbar-hide">
+                <button class="shrink-0 bg-white border border-neutral-300 shadow-sm text-neutral-700 px-4 h-[32px] rounded-[6px] text-[14px] font-medium flex justify-center items-center gap-xs hover:bg-neutral-50 transition">
                     <i data-lucide="filter" class="w-4 h-4 text-neutral-600"></i> Filters
                 </button>
-                <button class="shrink-0 bg-white border border-neutral-300 text-neutral-900 px-4 py-2 rounded-base text-sm font-normal hover:bg-neutral-50 transition shadow-sm">Confirm all</button>
-                <button class="shrink-0 bg-[#4A90E2] text-white px-4 py-2 rounded-base text-sm font-normal transition shadow-sm hover:bg-[#357ABD]">Send to Action</button>
+                <button class="shrink-0 bg-white border border-neutral-300 shadow-sm text-neutral-700 px-4 h-[32px] rounded-[6px] text-[14px] font-medium flex justify-center items-center hover:bg-neutral-50 transition">Confirm all</button>
+                <button class="shrink-0 bg-[#1890FF] text-white px-4 h-[32px] rounded-[6px] text-[14px] font-medium flex justify-center items-center transition hover:bg-[#1683EB] shadow-sm border border-transparent">Send to Action</button>
             </div>
         </div>
 
@@ -141,20 +141,20 @@
     </main>
 
     <!-- FLOATING ACTION BUTTON (Copilot Trigger) -->
-    <button id="fab-copilot" class="fixed bottom-lg right-lg w-16 h-16 rounded-full bg-white shadow-lg border border-neutral-200 flex items-center justify-center hover:scale-105 transition-transform z-40 focus:outline-none focus:ring-4 focus:ring-primary-100 p-2">
-        <img src="schippy.png" alt="Schippy" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/2565/2565174.png';">
+    <button id="fab-copilot" class="fixed bottom-lg right-lg w-[72px] h-[72px] rounded-full bg-transparent flex items-center justify-center hover:scale-105 transition-transform z-40 focus:outline-none overflow-visible drop-shadow-xl border-0">
+        <img src="img/schippy-fab.png" alt="Schippy" class="w-full h-full object-contain">
     </button>
 
     <!-- COPILOT SIDE PANEL -->
-    <div id="copilot-panel" class="fixed top-14 right-0 w-full sm:w-[450px] h-[calc(100vh-56px)] bg-white shadow-2xl border-l border-neutral-200 transform translate-x-full transition-transform duration-300 ease-in-out z-50 flex flex-col font-sans">
+    <div id="copilot-panel" class="fixed top-0 right-0 w-full sm:w-[450px] h-screen bg-white shadow-2xl border-l border-neutral-200 transform translate-x-full transition-transform duration-300 ease-in-out z-50 flex flex-col font-sans">
         
         <div class="bg-copilot-bg px-4 py-3.5 flex items-center justify-between shrink-0 border-b border-copilot-brand/10">
             <div class="flex items-center gap-2 text-copilot-brand">
-                <i data-lucide="smile" class="w-6 h-6 stroke-[2.5]"></i>
+                <img src="img/schippy-avatar-header.png" alt="Schippy Icon" class="w-6 h-6 object-contain">
                 <h2 class="text-base font-bold tracking-tight">Schippy AI Assistant</h2>
             </div>
             <div class="flex items-center gap-2 text-copilot-brand">
-                <button id="history-btn" class="p-1 hover:bg-copilot-brand/10 rounded transition-colors"><i data-lucide="file-search" class="w-5 h-5 stroke-[2.5]"></i></button>
+                <button id="history-btn" class="p-1 hover:bg-copilot-brand/10 rounded transition-colors"><i data-lucide="text-search" class="w-5 h-5 stroke-[1.5]"></i></button>
                 <button id="close-copilot" class="p-1 hover:bg-copilot-brand/10 rounded transition-colors"><i data-lucide="x" class="w-5 h-5 stroke-[2.5]"></i></button>
             </div>
         </div>
@@ -256,7 +256,7 @@
                     <i data-lucide="send" class="w-4 h-4 ml-0.5"></i>
                 </button>
             </form>
-            <p class="text-[10px] text-neutral-400">This AI-generated response may not be entirely accurate</p>
+            <p class="text-[11px] text-neutral-400 font-sans text-center">This AI-generated response may not be entirely accurate</p>
         </div>
     </div>
 
