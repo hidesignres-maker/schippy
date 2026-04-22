@@ -429,6 +429,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (historyBtn) historyBtn.addEventListener("click", toggleHistory);
 
+  let scrollPosition = 0;
+
   function openPanel() {
     copilotPanel.classList.remove("translate-x-full");
     panelOverlay.classList.remove("hidden");
@@ -437,6 +439,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 10);
     
     if (window.innerWidth < 640) {
+      scrollPosition = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollPosition}px`;
+      document.body.style.width = '100%';
       document.body.style.overflow = "hidden"; // Prevent body scroll on mobile
     } else {
       mainContent.style.paddingRight = "450px"; // Push content on desktop
@@ -449,7 +455,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (window.innerWidth >= 640) {
       mainContent.style.paddingRight = "0px";
     }
-    document.body.style.overflow = ""; // Restore body scroll
+    
+    if (window.innerWidth < 640) {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflow = ""; // Restore body scroll
+      window.scrollTo(0, scrollPosition);
+    }
 
     panelOverlay.classList.add("opacity-0");
 
@@ -1135,9 +1148,9 @@ document.addEventListener("DOMContentLoaded", () => {
           ? step.quickReplies(ctx)
           : step.quickReplies;
       if (replies && replies.length > 0) {
-        let btnsHTML = `<div class="mt-4 flex flex-wrap gap-2">`;
+        let btnsHTML = `<div class="mt-4 flex flex-wrap gap-2.5 sm:gap-2">`;
         replies.forEach((btn) => {
-          btnsHTML += `<button onclick="window.sendQuickReply('${btn}')" class="quick-reply-btn rounded-full border border-neutral-200 px-4 py-1.5 text-[12px] font-normal text-neutral-700 bg-white hover:bg-neutral-50 transition-colors shadow-sm">${btn}</button>`;
+          btnsHTML += `<button onclick="window.sendQuickReply('${btn}')" class="quick-reply-btn rounded-full border border-neutral-200 px-4 py-2 sm:py-1.5 text-[13px] sm:text-[12px] font-normal text-neutral-700 bg-white hover:bg-neutral-50 transition-colors shadow-sm active:bg-neutral-100">${btn}</button>`;
         });
         btnsHTML += `</div>`;
         appendMessage(btnsHTML, "bot");
@@ -1725,7 +1738,7 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
           
           <!-- 5 Key Metrics -->
-          <div class="grid grid-cols-2 gap-4 mb-4">
+          <div class="flex flex-col sm:grid sm:grid-cols-2 gap-3 sm:gap-4 mb-4">
             <div>
               <p class="text-[11px] text-neutral-500 uppercase tracking-widest font-medium">Total Cases</p>
               <p class="text-[20px] font-bold text-neutral-900 mt-1">${summary.totalCases || "8,200 CS"}</p>
@@ -1952,10 +1965,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const div = document.createElement("div");
     div.className = "bg-white font-sans mt-2 mb-4 w-full animate-fade-in-up";
 
-    let rowsHtml = "";
+    let tableRowsHtml = "";
+    let mobileCardsHtml = "";
+    
     drillData.origins.forEach((row) => {
       const varClass = row.isPositive ? "text-success-700" : "text-error-700";
-      rowsHtml += `
+      
+      // Desktop Table Row
+      tableRowsHtml += `
         <tr class="border-b border-neutral-100 last:border-0 hover:bg-neutral-50 transition-colors">
           <td class="py-2.5 pr-3 text-neutral-900 font-medium">${row.name}</td>
           <td class="py-2.5 pr-3 text-neutral-700 text-right font-mono text-[12px]">${row.cases}</td>
@@ -1963,6 +1980,19 @@ document.addEventListener("DOMContentLoaded", () => {
           <td class="py-2.5 pr-3 text-neutral-700 text-right font-mono text-[12px]">${row.mitVal}</td>
           <td class="py-2.5 text-right font-mono text-[12px] ${varClass}">${row.variance}</td>
         </tr>
+      `;
+
+      // Mobile Card
+      mobileCardsHtml += `
+        <div class="border border-neutral-100 rounded-md p-3 mb-3 last:mb-0 bg-neutral-50 shadow-sm">
+          <div class="font-medium text-[13px] text-neutral-900 mb-2 border-b border-neutral-200 pb-1">${row.name}</div>
+          <div class="grid grid-cols-2 gap-2 text-[12px]">
+            <div class="flex flex-col"><span class="text-neutral-500 text-[10px] uppercase">Cases</span> <span class="font-mono">${row.cases}</span></div>
+            <div class="flex flex-col"><span class="text-neutral-500 text-[10px] uppercase">Weight</span> <span class="font-mono">${row.weight}</span></div>
+            <div class="flex flex-col"><span class="text-neutral-500 text-[10px] uppercase">Mit. Val.</span> <span class="font-mono">${row.mitVal}</span></div>
+            <div class="flex flex-col"><span class="text-neutral-500 text-[10px] uppercase">Δ vs Forecast</span> <span class="font-mono ${varClass}">${row.variance}</span></div>
+          </div>
+        </div>
       `;
     });
 
@@ -1975,8 +2005,14 @@ document.addEventListener("DOMContentLoaded", () => {
             <span class="font-medium text-neutral-900">${drillData.materialName}</span> <span class="font-mono text-[11px]">(${drillData.materialId})</span> to <span class="font-medium text-neutral-900">${drillData.destination}</span>
           </div>
 
-          <div class="overflow-x-auto scrollbar-hide">
-            <table class="w-full text-left text-[12px] border-collapse min-w-[500px]">
+          <!-- Mobile View -->
+          <div class="block sm:hidden">
+            ${mobileCardsHtml}
+          </div>
+
+          <!-- Desktop View -->
+          <div class="hidden sm:block overflow-x-auto scrollbar-hide">
+            <table class="w-full text-left text-[12px] border-collapse">
               <thead>
                 <tr class="border-b border-neutral-200 text-neutral-900 font-bold">
                   <th class="py-2 pr-3 text-left">Origin</th>
@@ -1987,7 +2023,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 </tr>
               </thead>
               <tbody>
-                ${rowsHtml}
+                ${tableRowsHtml}
               </tbody>
             </table>
           </div>
@@ -1996,7 +2032,6 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
 
     chatBox.appendChild(div);
-    if (window.lucide) window.lucide.createIcons();
     scrollToBottom();
   }
 
@@ -2020,7 +2055,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                     ${data.materialContext && data.materialContext !== "All Materials" ? `<p class="text-[13px] text-neutral-600 mb-3">Material: <strong>${data.materialContext}</strong></p>` : ""}
 
-                    <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div class="flex flex-col sm:grid sm:grid-cols-2 gap-3 sm:gap-4 mb-4">
                         <!-- Base Target -->
                         <div>
                             <p class="font-bold text-[14px] text-neutral-900 border-b border-neutral-100 pb-1 mb-2">${data.base.name}</p>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>Schip Dashboard & Copilot - Alloy V1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -162,7 +162,7 @@
         <!-- History View Overlay -->
         <div id="history-view" class="absolute top-[60px] left-0 w-full h-[calc(100%-60px)] bg-white z-20 hidden flex-col">
             <div class="px-6 py-6 flex-1 overflow-y-auto">
-                <h3 class="text-[20px] font-bold text-neutral-900 mb-6 font-sans">Previous Chats</h3>
+                <h3 class="text-[18px] sm:text-[20px] font-bold text-neutral-900 mb-4 sm:mb-6 font-sans">Previous Chats</h3>
                 <div class="space-y-5">
                     <div class="flex items-center justify-between group cursor-pointer hover:bg-neutral-50 -mx-2 px-2 py-1 rounded transition-colors">
                         <div class="flex items-center gap-3">
@@ -248,7 +248,7 @@
                 <input 
                     type="text" 
                     id="user-input"
-                    class="w-full bg-neutral-50 border border-neutral-200 text-[13px] rounded-lg pl-9 pr-12 py-2.5 focus:outline-none focus:border-copilot-brand focus:ring-1 focus:ring-copilot-brand transition-all placeholder:text-neutral-400"
+                    class="w-full bg-neutral-50 border border-neutral-200 text-[16px] sm:text-[13px] rounded-lg pl-9 pr-12 py-3 sm:py-2.5 focus:outline-none focus:border-copilot-brand focus:ring-1 focus:ring-copilot-brand transition-all placeholder:text-neutral-400"
                     placeholder="Ask me anything..."
                     autocomplete="off"
                 >
@@ -256,7 +256,7 @@
                     <i data-lucide="send" class="w-4 h-4 ml-0.5"></i>
                 </button>
             </form>
-            <p class="text-[11px] text-neutral-400 font-sans text-center">This AI-generated response may not be entirely accurate</p>
+            <p class="text-[10px] sm:text-[11px] text-neutral-400/80 font-sans text-center mt-1 sm:mt-0">This AI-generated response may not be entirely accurate</p>
         </div>
     </div>
 
