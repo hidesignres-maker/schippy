@@ -435,13 +435,22 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       panelOverlay.classList.remove("opacity-0");
     }, 10);
-    // Push content on desktop
-    mainContent.style.paddingRight = window.innerWidth >= 640 ? "450px" : "0px";
+    
+    if (window.innerWidth < 640) {
+      document.body.style.overflow = "hidden"; // Prevent body scroll on mobile
+    } else {
+      mainContent.style.paddingRight = "450px"; // Push content on desktop
+    }
   }
+
   function closePanel() {
     copilotPanel.classList.add("translate-x-full");
     // Revert push on desktop
-    mainContent.style.paddingRight = "0px";
+    if (window.innerWidth >= 640) {
+      mainContent.style.paddingRight = "0px";
+    }
+    document.body.style.overflow = ""; // Restore body scroll
+
     panelOverlay.classList.add("opacity-0");
 
     // Hide history if open
@@ -1235,6 +1244,13 @@ document.addEventListener("DOMContentLoaded", () => {
     appendMessage(text, "user");
     processInput(text);
     userInput.value = "";
+  });
+
+  // Ensure scroll is fixed when mobile keyboard opens
+  userInput.addEventListener("focus", () => {
+    setTimeout(() => {
+      scrollToBottom();
+    }, 300);
   });
 
   window.sendQuickReply = function (text) {
