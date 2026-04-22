@@ -1861,12 +1861,12 @@ document.addEventListener("DOMContentLoaded", () => {
     tableData.forEach((row) => {
       tableHTML += `
         <tr class="border-b border-neutral-100 hover:bg-neutral-50 transition-colors cursor-pointer" onclick="window.triggerSilentAction('VIEW_MATERIAL_DETAIL|${row.materialId}|${row.material}')">
-          <td class="px-3 py-2 text-neutral-900 font-medium">${row.material}</td>
-          <td class="px-3 py-2 text-neutral-500 font-mono text-[11px]">${row.materialId}</td>
-          <td class="px-3 py-2 text-neutral-700">${row.origin}</td>
-          <td class="px-3 py-2 text-right text-neutral-900 font-mono text-[12px]">${row.cases}</td>
-          <td class="px-3 py-2 text-right text-neutral-900 font-mono text-[12px]">${row.value}</td>
-          <td class="px-3 py-2 text-right font-mono text-[12px] ${row.deltaPositive ? "text-error-700" : "text-success-700"}">${row.delta}</td>
+          <td class="px-3 py-3 sm:py-2 text-neutral-900 font-medium">${row.material}</td>
+          <td class="px-3 py-3 sm:py-2 text-neutral-500 font-mono text-[11px]">${row.materialId}</td>
+          <td class="px-3 py-3 sm:py-2 text-neutral-700">${row.origin}</td>
+          <td class="px-3 py-3 sm:py-2 text-right text-neutral-900 font-mono text-[12px]">${row.cases}</td>
+          <td class="px-3 py-3 sm:py-2 text-right text-neutral-900 font-mono text-[12px]">${row.value}</td>
+          <td class="px-3 py-3 sm:py-2 text-right font-mono text-[12px] ${row.deltaPositive ? "text-error-700" : "text-success-700"}">${row.delta}</td>
         </tr>
       `;
     });
@@ -2420,10 +2420,10 @@ document.addEventListener("DOMContentLoaded", () => {
       rows.forEach((row) => {
         html += `
                     <tr class="border-b border-neutral-100 last:border-0 hover:bg-neutral-50 transition-colors cursor-pointer" onclick="window.triggerSilentAction('VIEW_MATERIAL_DETAIL|${row.matId || 'unknown'}|${row.material}')">
-                        <td class="py-2 pr-3 font-medium text-neutral-900 truncate max-w-[150px]">${row.material}</td>
-                        <td class="py-2 pr-3 text-neutral-700">${row.base}</td>
-                        <td class="py-2 pr-3 text-neutral-700">${row.compare}</td>
-                        <td class="py-2 text-neutral-600">${row.delta}</td>
+                        <td class="py-3 sm:py-2 pr-3 font-medium text-neutral-900 truncate max-w-[150px]">${row.material}</td>
+                        <td class="py-3 sm:py-2 pr-3 text-neutral-700">${row.base}</td>
+                        <td class="py-3 sm:py-2 pr-3 text-neutral-700">${row.compare}</td>
+                        <td class="py-3 sm:py-2 text-neutral-600">${row.delta}</td>
                     </tr>
                 `;
       });
@@ -2449,12 +2449,12 @@ document.addEventListener("DOMContentLoaded", () => {
       rows.forEach((row) => {
         html += `
                     <tr class="border-b border-neutral-100 last:border-0 hover:bg-neutral-50 transition-colors cursor-pointer" onclick="window.triggerSilentAction('VIEW_MATERIAL_DETAIL|${row.matId || 'unknown'}|${row.material}')">
-                        <td class="py-2 pr-3 font-medium text-neutral-900 truncate max-w-[120px]">${row.material}</td>
-                        <td class="py-2 pr-3 text-neutral-700 font-mono text-[11px]">${row.matId}</td>
-                        <td class="py-2 pr-3 text-neutral-700">${row.origin}</td>
-                        <td class="py-2 pr-3 text-neutral-700 font-mono text-[11px]">${row.totalCs}</td>
-                        <td class="py-2 pr-3 text-neutral-700 font-mono text-[11px]">${row.mitVal}</td>
-                        <td class="py-2 text-neutral-700 font-mono text-[11px]">${row.delta}</td>
+                        <td class="py-3 sm:py-2 pr-3 font-medium text-neutral-900 truncate max-w-[120px]">${row.material}</td>
+                        <td class="py-3 sm:py-2 pr-3 text-neutral-700 font-mono text-[11px]">${row.matId}</td>
+                        <td class="py-3 sm:py-2 pr-3 text-neutral-700">${row.origin}</td>
+                        <td class="py-3 sm:py-2 pr-3 text-neutral-700 font-mono text-[11px]">${row.totalCs}</td>
+                        <td class="py-3 sm:py-2 pr-3 text-neutral-700 font-mono text-[11px]">${row.mitVal}</td>
+                        <td class="py-3 sm:py-2 text-neutral-700 font-mono text-[11px]">${row.delta}</td>
                     </tr>
                 `;
       });
